@@ -1,62 +1,26 @@
 ; ===== código gerado por mcc =====
 .text
-_f_init:
-	push bp
-	ld bp, sp
-	ld r0, 0
-	st r0, (_g_counter_init)
-_L5de1c767_5:
-	ld r0, 1
-	cmp r0, 0
-	jmpc eq, _L5de1c767_6
-	ld r0, (_g_counter_init)
-	push r0
-	add r0, 1
-	st r0, (_g_counter_init)
-	pop r0
-	ld r0, (_g_counter_init)
-	push r0
-	ld r0, 100
-	ld r1, r0
-	pop r0
-	cmp r0, r1
-	jmpc eq, _L5de1c767_7
-	ld r0, 0
-	jmp _L5de1c767_8
-_L5de1c767_7:
-	ld r0, 1
-_L5de1c767_8:
-	cmp r0, 0
-	jmpc eq, _L5de1c767_9
-	ld r0, 0
-	st r0, (_g_counter_init)
-_L5de1c767_9:
-	jmp _L5de1c767_5
-_L5de1c767_6:
-	ld sp, bp
-	pop bp
-	ret
 _f_cria_processo:
 	push bp
 	ld bp, sp
 	sub sp, 4
 	ld r0, 0
 	st r0, (bp+-2)
-_L5de1c767_23:
+_L2a8a8456_13:
 	ld r0, (bp+-2)
 	push r0
 	ld r0, 8
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L5de1c767_26
+	jmpc lt, _L2a8a8456_16
 	ld r0, 0
-	jmp _L5de1c767_27
-_L5de1c767_26:
+	jmp _L2a8a8456_17
+_L2a8a8456_16:
 	ld r0, 1
-_L5de1c767_27:
+_L2a8a8456_17:
 	cmp r0, 0
-	jmpc eq, _L5de1c767_25
+	jmpc eq, _L2a8a8456_15
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -69,14 +33,14 @@ _L5de1c767_27:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L5de1c767_28
+	jmpc eq, _L2a8a8456_18
 	ld r0, 0
-	jmp _L5de1c767_29
-_L5de1c767_28:
+	jmp _L2a8a8456_19
+_L2a8a8456_18:
 	ld r0, 1
-_L5de1c767_29:
+_L2a8a8456_19:
 	cmp r0, 0
-	jmpc eq, _L5de1c767_30
+	jmpc eq, _L2a8a8456_20
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -94,21 +58,21 @@ _L5de1c767_29:
 	pop r0
 	ld r0, 0
 	st r0, (bp+-4)
-_L5de1c767_31:
+_L2a8a8456_21:
 	ld r0, (bp+-4)
 	push r0
 	ld r0, 16
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L5de1c767_34
+	jmpc lt, _L2a8a8456_24
 	ld r0, 0
-	jmp _L5de1c767_35
-_L5de1c767_34:
+	jmp _L2a8a8456_25
+_L2a8a8456_24:
 	ld r0, 1
-_L5de1c767_35:
+_L2a8a8456_25:
 	cmp r0, 0
-	jmpc eq, _L5de1c767_33
+	jmpc eq, _L2a8a8456_23
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -126,116 +90,14 @@ _L5de1c767_35:
 	ld r0, 0
 	pop r1
 	st r0, (r1)
-_L5de1c767_32:
+_L2a8a8456_22:
 	ld r0, (bp+-4)
 	push r0
 	add r0, 1
 	st r0, (bp+-4)
 	pop r0
-	jmp _L5de1c767_31
-_L5de1c767_33:
-	ld r0, (bp+-2)
-	ld sp, bp
-	pop bp
-	ret
-_L5de1c767_30:
-_L5de1c767_24:
-	ld r0, (bp+-2)
-	push r0
-	add r0, 1
-	st r0, (bp+-2)
-	pop r0
-	jmp _L5de1c767_23
-_L5de1c767_25:
-	ld r0, 1
-	xor r0, -1
-	add r0, 1
-	ld sp, bp
-	pop bp
-	ret
-	ld sp, bp
-	pop bp
-	ret
-_f_kernel_inicio:
-	push bp
-	ld bp, sp
-	sub sp, 4
-	ld r0, 1
-	xor r0, -1
-	add r0, 1
-	st r0, (_g_processo_atual)
-	ld r0, 1
-	st r0, (_g_proximo_pid)
-	ld r0, 0
-	st r0, (bp+-4)
-_L5de1c767_44:
-	ld r0, (bp+-4)
-	push r0
-	ld r0, 8
-	ld r1, r0
-	pop r0
-	cmp r0, r1
-	jmpc lt, _L5de1c767_47
-	ld r0, 0
-	jmp _L5de1c767_48
-_L5de1c767_47:
-	ld r0, 1
-_L5de1c767_48:
-	cmp r0, 0
-	jmpc eq, _L5de1c767_46
-	ld r0, _g_tabela_processos
-	push r0
-	ld r0, (bp+-4)
-	mul r0, 36
-	pop r1
-	add r1, r0
-	push r1
-	ld r0, 0
-	pop r1
-	st r0, (r1)
-	ld r0, _g_tabela_processos
-	push r0
-	ld r0, (bp+-4)
-	mul r0, 36
-	pop r1
-	add r1, r0
-	push r1
-	ld r0, 0
-	pop r1
-	st r0, (r1+2)
-_L5de1c767_45:
-	ld r0, (bp+-4)
-	push r0
-	add r0, 1
-	st r0, (bp+-4)
-	pop r0
-	jmp _L5de1c767_44
-_L5de1c767_46:
-	call _f_cria_processo
-	st r0, (bp+-2)
-	ld r0, (bp+-2)
-	push r0
-	ld r0, 1
-	xor r0, -1
-	add r0, 1
-	ld r1, r0
-	pop r0
-	cmp r0, r1
-	jmpc eq, _L5de1c767_49
-	ld r0, 0
-	jmp _L5de1c767_50
-_L5de1c767_49:
-	ld r0, 1
-_L5de1c767_50:
-	cmp r0, 0
-	jmpc eq, _L5de1c767_51
-	ld r0, 1
-	xor r0, -1
-	add r0, 1
-	ld sp, bp
-	pop bp
-	ret
-_L5de1c767_51:
+	jmp _L2a8a8456_21
+_L2a8a8456_23:
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -250,7 +112,13 @@ _L5de1c767_51:
 	pop r1
 	add r1, r0
 	push r1
-	ld r0, _g_pilha_init
+	ld r0, _g_pilhas
+	push r0
+	ld r0, (bp+-2)
+	mul r0, 256
+	pop r1
+	add r1, r0
+	ld r0, r1
 	push r0
 	ld r0, 128
 	mul r0, 2
@@ -273,9 +141,189 @@ _L5de1c767_51:
 	pop r1
 	add r1, r0
 	push r1
-	ld r0, _f_init
+	ld r0, (bp+4)
 	pop r1
 	st r0, (r1)
+	ld r0, _g_tabela_processos
+	push r0
+	ld r0, (bp+-2)
+	mul r0, 36
+	pop r1
+	add r1, r0
+	ld r0, r1
+	add r0, 4
+	push r0
+	ld r0, 8
+	mul r0, 2
+	pop r1
+	add r1, r0
+	push r1
+	ld r0, 0
+	pop r1
+	st r0, (r1)
+	ld r0, _g_tabela_processos
+	push r0
+	ld r0, (bp+-2)
+	mul r0, 36
+	pop r1
+	add r1, r0
+	push r1
+	ld r0, 1
+	pop r1
+	st r0, (r1+2)
+	ld r0, (bp+-2)
+	ld sp, bp
+	pop bp
+	ret
+_L2a8a8456_20:
+_L2a8a8456_14:
+	ld r0, (bp+-2)
+	push r0
+	add r0, 1
+	st r0, (bp+-2)
+	pop r0
+	jmp _L2a8a8456_13
+_L2a8a8456_15:
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	ld sp, bp
+	pop bp
+	ret
+	ld sp, bp
+	pop bp
+	ret
+_f_init:
+	push bp
+	ld bp, sp
+	ld r0, 79
+	push r0
+	call _f_so_escreve
+	add sp, 2
+	ld r0, 105
+	push r0
+	call _f_so_escreve
+	add sp, 2
+	ld r0, 10
+	push r0
+	call _f_so_escreve
+	add sp, 2
+	ld r0, 0
+	st r0, (_g_counter_init)
+_L2a8a8456_31:
+	ld r0, 1
+	cmp r0, 0
+	jmpc eq, _L2a8a8456_32
+	ld r0, (_g_counter_init)
+	push r0
+	add r0, 1
+	st r0, (_g_counter_init)
+	pop r0
+	ld r0, (_g_counter_init)
+	push r0
+	ld r0, 100
+	ld r1, r0
+	pop r0
+	cmp r0, r1
+	jmpc eq, _L2a8a8456_33
+	ld r0, 0
+	jmp _L2a8a8456_34
+_L2a8a8456_33:
+	ld r0, 1
+_L2a8a8456_34:
+	cmp r0, 0
+	jmpc eq, _L2a8a8456_35
+	ld r0, 0
+	st r0, (_g_counter_init)
+_L2a8a8456_35:
+	jmp _L2a8a8456_31
+_L2a8a8456_32:
+	ld sp, bp
+	pop bp
+	ret
+_f_kernel_inicio:
+	push bp
+	ld bp, sp
+	sub sp, 4
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	st r0, (_g_processo_atual)
+	ld r0, 1
+	st r0, (_g_proximo_pid)
+	ld r0, 0
+	st r0, (bp+-4)
+_L2a8a8456_44:
+	ld r0, (bp+-4)
+	push r0
+	ld r0, 8
+	ld r1, r0
+	pop r0
+	cmp r0, r1
+	jmpc lt, _L2a8a8456_47
+	ld r0, 0
+	jmp _L2a8a8456_48
+_L2a8a8456_47:
+	ld r0, 1
+_L2a8a8456_48:
+	cmp r0, 0
+	jmpc eq, _L2a8a8456_46
+	ld r0, _g_tabela_processos
+	push r0
+	ld r0, (bp+-4)
+	mul r0, 36
+	pop r1
+	add r1, r0
+	push r1
+	ld r0, 0
+	pop r1
+	st r0, (r1)
+	ld r0, _g_tabela_processos
+	push r0
+	ld r0, (bp+-4)
+	mul r0, 36
+	pop r1
+	add r1, r0
+	push r1
+	ld r0, 0
+	pop r1
+	st r0, (r1+2)
+_L2a8a8456_45:
+	ld r0, (bp+-4)
+	push r0
+	add r0, 1
+	st r0, (bp+-4)
+	pop r0
+	jmp _L2a8a8456_44
+_L2a8a8456_46:
+	ld r0, _f_init
+	push r0
+	call _f_cria_processo
+	add sp, 2
+	st r0, (bp+-2)
+	ld r0, (bp+-2)
+	push r0
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	ld r1, r0
+	pop r0
+	cmp r0, r1
+	jmpc eq, _L2a8a8456_49
+	ld r0, 0
+	jmp _L2a8a8456_50
+_L2a8a8456_49:
+	ld r0, 1
+_L2a8a8456_50:
+	cmp r0, 0
+	jmpc eq, _L2a8a8456_51
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	ld sp, bp
+	pop bp
+	ret
+_L2a8a8456_51:
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -605,7 +653,1799 @@ _g_processo_atual:
 _g_proximo_pid:
 	.db 0
 	.db 0
-_g_pilha_init:
+_g_pilhas:
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
+	.db 0
 	.db 0
 	.db 0
 	.db 0
