@@ -15,12 +15,17 @@
 #define EXECUTANDO 2
 #define BLOQUEADO  3
 
+#define BLOQ_NENHUM   0
+#define BLOQ_PROCESSO 1
+#define BLOQ_LEITURA  2
+
 struct Processo
 {
-    int pid;          //id do processo
-    int estado;       //estado do processo
-    int contexto[16]; //16 registradores do mancha
-    int pid_esperado; //0: nao espera
+    int pid;             //id do processo
+    int estado;          //estado do processo
+    int contexto[16];    //16 registradores do mancha
+    int pid_esperado;    //0: nao espera
+    int motivo_bloqueio; //a
 };
 
 //a funcao recebe o endereco do codigo que o novo

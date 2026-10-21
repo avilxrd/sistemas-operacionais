@@ -26,6 +26,7 @@ int cria_processo(int endereco_inicio)
             tabela_processos[i].contexto[CTX_IP] = endereco_inicio;
             tabela_processos[i].contexto[CTX_SR] = 0;
             tabela_processos[i].pid_esperado = 0;
+            tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
             tabela_processos[i].estado = PRONTO;
 
             //retorna o indice do processo na tabela de processos
@@ -116,13 +117,16 @@ int mata_processo(int pid)
         {
             tabela_processos[i].estado = LIVRE;
             tabela_processos[i].pid_esperado = 0;
+            tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
             
             for (int j=0; j<MAX_PROCESSOS; j++)
             {
-                if (tabela_processos[j].estado == BLOQUEADO &&
+                if (tabela_processos[j].estado == BLOQUEADO              &&
+                    tabela_processos[j].motivo_bloqueio == BLOQ_PROCESSO &&
                     tabela_processos[j].pid_esperado == pid)
                 {
                     tabela_processos[j].pid_esperado = 0;
+                    tabela_processos[j].motivo_bloqueio = BLOQ_NENHUM;
                     tabela_processos[j].contexto[0] = 0;
                     tabela_processos[j].estado = PRONTO;
                 }
@@ -152,6 +156,7 @@ int espera_processo(int pid)
             tabela_processos[i].pid == pid)
         {
             tabela_processos[processo_atual].pid_esperado = pid;
+            tabela_processos[processo_atual].motivo_bloqueio = BLOQ_PROCESSO;
             tabela_processos[processo_atual].estado = BLOQUEADO;
             return 0;
         }
