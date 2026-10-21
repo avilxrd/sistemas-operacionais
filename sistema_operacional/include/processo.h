@@ -39,5 +39,7 @@ void restaura_contexto(int *quadro);
 void so_escalona(void);
 
 
+//
+int mata_processo(int pid);
 
 #endif

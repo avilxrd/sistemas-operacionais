@@ -94,3 +94,29 @@ void so_escalona()
         }
     }
 }
+
+
+int mata_processo(int pid)
+{
+    if (pid == 0)
+    {
+        if (processo_atual != -1)
+        {
+            return 1;
+        }
+
+        pid = tabela_processos[processo_atual].pid;
+    }
+
+    for (int i=0; i<MAX_PROCESSOS; i++)
+    {
+        if (tabela_processos[i].estado != LIVRE &&
+            tabela_processos[i].pid == pid)
+        {
+            tabela_processos[i].estado = LIVRE;
+            return 0;
+        }
+    }
+
+    return -1;
+}

@@ -15,8 +15,10 @@ void processo_b(void)
 void init(void)
 {
     int pid_b;
+    int resultado;
 
     pid_b = so_cria_processo((int) processo_b);
+
     if (pid_b == -1)
     {
         so_escreve('E');
@@ -24,21 +26,29 @@ void init(void)
     else
     {
         so_escreve('C');
-    }
 
-    so_escreve(10);
+        resultado = so_mata_proc(pid_b);
 
-    so_escreve('O');
-    so_escreve('i');
-    so_escreve(10);
-    
-    counter_init = 0;
-    while (1)
-    {
-        counter_init++;
-        if (counter_init == 100)
+        if (resultado == 0)
         {
-            counter_init = 0;
+            so_escreve('M');
+        }
+        else
+        {
+            so_escreve('E');
+        }
+
+        resultado = so_mata_proc(pid_b);
+
+        if (resultado == -1)
+        {
+            so_escreve('X');
+        }
+        else
+        {
+            so_escreve('E');
         }
     }
+
+    while(1){}
 }

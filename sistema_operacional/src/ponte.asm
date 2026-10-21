@@ -1,5 +1,6 @@
 .equ SO_ESCREVE   = 1
 .equ SO_CRIA_PROC = 2
+.equ SO_MATA_PROC = 3
 
 _kernel_inicio:
         ld      r0, entrada_syscall
@@ -58,6 +59,19 @@ _f_so_cria_processo:
 
         ld      r1, (bp+4)
         ld      r0, SO_CRIA_PROC
+        trap    7
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+;int so_mata_proc(int pid);
+_f_so_mata_proc:
+        push    bp
+        ld      bp, sp
+
+        ld      r1, (bp+4)
+        ld      r0, SO_MATA_PROC
         trap    7
 
         ld      sp, bp

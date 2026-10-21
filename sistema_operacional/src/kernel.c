@@ -4,6 +4,7 @@
 
 void console_escreve(int caractere);
 
+int pid_init;
 
 //ponto de entrada do kernel
 int kernel_inicio(void)
@@ -27,6 +28,8 @@ int kernel_inicio(void)
         return -1;
     }
 
+    pid_init = tabela_processos[index_init].pid;
+
     so_escalona();
 
     if (processo_atual == -1)
@@ -43,8 +46,13 @@ int trata_syscall(int *quadro)
     int chamada;
     int argumento;
     int resultado;
+    
+    int chamador;
+    int pid_alvo;
 
     salva_contexto(quadro);
+
+    chamador = processo_atual;
 
     chamada   = quadro[0]; //r0: numero da chamada
     argumento = quadro[1]; //r1: primeiro argumento
@@ -65,8 +73,28 @@ int trata_syscall(int *quadro)
             resultado = tabela_processos[novo_idx].pid;
         }
     }
+    if (chamada == SO_MATA_PROC)
+    {
+        pid_alvo = argumento;
 
-    tabela_processos[processo_atual].contexto[0] = resultado;
+        if (pid_alvo == 0)
+        {
+            pid_alvo = tabela_processos[chamador].pid;
+        }
+
+        resultado = mata_processo(pid_alvo);
+
+        if (resultado == 0 && pid_alvo == pid_init)
+        {
+            return -1;
+        }
+    }
+
+    if (tabela_processos[chamador].estado != LIVRE)
+    {
+        tabela_processos[chamador].contexto[0] = resultado;
+    }
+    
     so_escalona();
 
     if (processo_atual == -1)
@@ -76,4 +104,4 @@ int trata_syscall(int *quadro)
 
     restaura_contexto(quadro);
     return 0;
-}
+}   
