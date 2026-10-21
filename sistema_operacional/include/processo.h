@@ -4,6 +4,8 @@
 /* Limite de processos simultaneos. Uma entrada LIVRE pode ser reutilizada. */
 #define MAX_PROCESSOS 8
 
+#define QUANTUM 3
+
 /* Tamanho de cada pilha em palavras (16 bits). */
 #define TAMANHO_PILHA 128
 
@@ -60,5 +62,11 @@ int mata_processo(int pid);
  * O retorno imediato ao kernel. Usuario so continua depois de ser escalonado.
  * Ciclos ainda nao sao detectados. */
 int espera_processo(int pid);
+
+/* */
+void torna_pronto(int index);
+
+/* */
+void remove_fila(int index);
 
 #endif

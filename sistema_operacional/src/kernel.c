@@ -17,6 +17,8 @@ int kernel_inicio(void)
 {
     processo_atual = -1;
     proximo_pid    =  1;
+    quant_prontos = 0;
+    quantum_restante = 0;
 
     int index_init;
 
@@ -60,9 +62,9 @@ void trata_pendencias(void)
                 return;
             }
 
-            tabela_processos[i].contexto[0] = console_le;
+            tabela_processos[i].contexto[0] = console_le();
             tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
-            tabela_processos[i].estado = PRONTO;
+            torna_pronto(i);
         }
     }
 }
@@ -76,12 +78,29 @@ int trata_relogio(int *quadro)
     trata_pendencias();
     so_escalona();
 
+    if (processo_atual != -1)
+    {
+        if (tabela_processos[processo_atual].estado == EXECUTANDO)
+        {
+            quantum_restante--;
+
+            if (quantum_restante == 0)
+            {
+                torna_pronto(processo_atual);
+                processo_atual = -1;
+            }
+        }
+    }
+
+    so_escalona();
+
     if (processo_atual == -1)
     {
         return 1;
     }
 
     restaura_contexto(quadro);
+
     return 0;
 }
 

@@ -3,12 +3,53 @@
  * Os handlers atuais mantem interrupcoes externas desabilitadas durante as alteracoes. */
 #include "processo.h"
 
+/* Variaveis globais */
 struct Processo tabela_processos[MAX_PROCESSOS];
 int processo_atual; // Indice na tabela. -1 significa nenhuma execucao de usuario.
 int proximo_pid;    // Sequencia de PIDs.
 
-/* Cada entrada da tabela possui uma pilha exclusiva. */
-int pilhas[MAX_PROCESSOS][TAMANHO_PILHA];
+/* Round-Robin */
+int fila_prontos[MAX_PROCESSOS]; // Guarda o index, nao o PID
+int quantum_restante;
+int quant_prontos;
+
+int pilhas[MAX_PROCESSOS][TAMANHO_PILHA]; // Cada entrada da tabela possui uma pilha exclusiva.
+
+/* */
+void remove_fila(int index)
+{
+    for (int i=0; i<quant_prontos; i++)
+    {
+        if (fila_prontos[i] == index)
+        {
+            for (int j=0; j<quant_prontos-1; j++)
+            {
+                fila_prontos[j] = fila_prontos[j+1];
+            }
+        
+            quant_prontos--;
+            return;
+        }
+    }
+}
+
+
+/* */
+void torna_pronto(int index)
+{
+    for (int i=0; i<quant_prontos; i++)
+    {
+        if (fila_prontos[i] == index)
+        {
+            return;
+        }
+    }
+
+    tabela_processos[index].estado = PRONTO;
+    fila_prontos[quant_prontos] = index;
+    quant_prontos++;
+
+    }
 
 /* So fica PRONTO depois que todos os dados foram preparados. */
 int cria_processo(int endereco_inicio)
@@ -32,7 +73,7 @@ int cria_processo(int endereco_inicio)
             tabela_processos[i].contexto[CTX_SR] = 0;
             tabela_processos[i].pid_esperado = 0;
             tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
-            tabela_processos[i].estado = PRONTO;
+            torna_pronto(i);
 
             return i;
         }
@@ -78,25 +119,21 @@ void so_escalona()
         {
             return;
         }
-
-        if (tabela_processos[processo_atual].estado == PRONTO)
-        {
-            tabela_processos[processo_atual].estado = EXECUTANDO;
-            return;
-        }
     }
 
     processo_atual = -1;
 
-    for (int i=0; i<MAX_PROCESSOS; i++)
+    if (quant_prontos == 0)
     {
-        if (tabela_processos[i].estado == PRONTO)
-        {
-            processo_atual = i;
-            tabela_processos[i].estado = EXECUTANDO;
-            return;
-        }
+        return;
     }
+
+    processo_atual = fila_prontos[0];
+    remove_fila(processo_atual);
+
+    tabela_processos[processo_atual].estado = EXECUTANDO;
+    quantum_restante = QUANTUM;
+
 }
 
 
@@ -117,6 +154,7 @@ int mata_processo(int pid)
         if (tabela_processos[i].estado != LIVRE &&
             tabela_processos[i].pid == pid)
         {
+            remove_fila(i);
             tabela_processos[i].estado = LIVRE;
             tabela_processos[i].pid_esperado = 0;
             tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
@@ -131,7 +169,7 @@ int mata_processo(int pid)
                     tabela_processos[j].pid_esperado = 0;
                     tabela_processos[j].motivo_bloqueio = BLOQ_NENHUM;
                     tabela_processos[j].contexto[0] = 0;
-                    tabela_processos[j].estado = PRONTO;
+                    torna_pronto(j);
                 }
             }
             return 0;
