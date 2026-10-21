@@ -6,21 +6,21 @@ _f_cria_processo:
 	sub sp, 4
 	ld r0, 0
 	st r0, (bp+-2)
-_L66f0b443_13:
+_L64cfc938_13:
 	ld r0, (bp+-2)
 	push r0
 	ld r0, 8
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_16
+	jmpc lt, _L64cfc938_16
 	ld r0, 0
-	jmp _L66f0b443_17
-_L66f0b443_16:
+	jmp _L64cfc938_17
+_L64cfc938_16:
 	ld r0, 1
-_L66f0b443_17:
+_L64cfc938_17:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_15
+	jmpc eq, _L64cfc938_15
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -33,14 +33,14 @@ _L66f0b443_17:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_18
+	jmpc eq, _L64cfc938_18
 	ld r0, 0
-	jmp _L66f0b443_19
-_L66f0b443_18:
+	jmp _L64cfc938_19
+_L64cfc938_18:
 	ld r0, 1
-_L66f0b443_19:
+_L64cfc938_19:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_20
+	jmpc eq, _L64cfc938_20
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -58,21 +58,21 @@ _L66f0b443_19:
 	pop r0
 	ld r0, 0
 	st r0, (bp+-4)
-_L66f0b443_21:
+_L64cfc938_21:
 	ld r0, (bp+-4)
 	push r0
 	ld r0, 16
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_24
+	jmpc lt, _L64cfc938_24
 	ld r0, 0
-	jmp _L66f0b443_25
-_L66f0b443_24:
+	jmp _L64cfc938_25
+_L64cfc938_24:
 	ld r0, 1
-_L66f0b443_25:
+_L64cfc938_25:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_23
+	jmpc eq, _L64cfc938_23
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -90,14 +90,14 @@ _L66f0b443_25:
 	ld r0, 0
 	pop r1
 	st r0, (r1)
-_L66f0b443_22:
+_L64cfc938_22:
 	ld r0, (bp+-4)
 	push r0
 	add r0, 1
 	st r0, (bp+-4)
 	pop r0
-	jmp _L66f0b443_21
-_L66f0b443_23:
+	jmp _L64cfc938_21
+_L64cfc938_23:
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -175,15 +175,15 @@ _L66f0b443_23:
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_20:
-_L66f0b443_14:
+_L64cfc938_20:
+_L64cfc938_14:
 	ld r0, (bp+-2)
 	push r0
 	add r0, 1
 	st r0, (bp+-2)
 	pop r0
-	jmp _L66f0b443_13
-_L66f0b443_15:
+	jmp _L64cfc938_13
+_L64cfc938_15:
 	ld r0, 1
 	xor r0, -1
 	add r0, 1
@@ -205,35 +205,35 @@ _f_salva_contexto:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_34
+	jmpc eq, _L64cfc938_34
 	ld r0, 0
-	jmp _L66f0b443_35
-_L66f0b443_34:
+	jmp _L64cfc938_35
+_L64cfc938_34:
 	ld r0, 1
-_L66f0b443_35:
+_L64cfc938_35:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_36
+	jmpc eq, _L64cfc938_36
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_36:
+_L64cfc938_36:
 	ld r0, 0
 	st r0, (bp+-2)
-_L66f0b443_37:
+_L64cfc938_37:
 	ld r0, (bp+-2)
 	push r0
 	ld r0, 16
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_40
+	jmpc lt, _L64cfc938_40
 	ld r0, 0
-	jmp _L66f0b443_41
-_L66f0b443_40:
+	jmp _L64cfc938_41
+_L64cfc938_40:
 	ld r0, 1
-_L66f0b443_41:
+_L64cfc938_41:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_39
+	jmpc eq, _L64cfc938_39
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (_g_processo_atual)
@@ -257,14 +257,14 @@ _L66f0b443_41:
 	ld r0, (r1)
 	pop r1
 	st r0, (r1)
-_L66f0b443_38:
+_L64cfc938_38:
 	ld r0, (bp+-2)
 	push r0
 	add r0, 1
 	st r0, (bp+-2)
 	pop r0
-	jmp _L66f0b443_37
-_L66f0b443_39:
+	jmp _L64cfc938_37
+_L64cfc938_39:
 	ld sp, bp
 	pop bp
 	ret
@@ -280,35 +280,35 @@ _f_restaura_contexto:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_50
+	jmpc eq, _L64cfc938_50
 	ld r0, 0
-	jmp _L66f0b443_51
-_L66f0b443_50:
+	jmp _L64cfc938_51
+_L64cfc938_50:
 	ld r0, 1
-_L66f0b443_51:
+_L64cfc938_51:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_52
+	jmpc eq, _L64cfc938_52
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_52:
+_L64cfc938_52:
 	ld r0, 0
 	st r0, (bp+-2)
-_L66f0b443_53:
+_L64cfc938_53:
 	ld r0, (bp+-2)
 	push r0
 	ld r0, 16
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_56
+	jmpc lt, _L64cfc938_56
 	ld r0, 0
-	jmp _L66f0b443_57
-_L66f0b443_56:
+	jmp _L64cfc938_57
+_L64cfc938_56:
 	ld r0, 1
-_L66f0b443_57:
+_L64cfc938_57:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_55
+	jmpc eq, _L64cfc938_55
 	ld r0, (bp+4)
 	push r0
 	ld r0, (bp+-2)
@@ -332,14 +332,14 @@ _L66f0b443_57:
 	ld r0, (r1)
 	pop r1
 	st r0, (r1)
-_L66f0b443_54:
+_L64cfc938_54:
 	ld r0, (bp+-2)
 	push r0
 	add r0, 1
 	st r0, (bp+-2)
 	pop r0
-	jmp _L66f0b443_53
-_L66f0b443_55:
+	jmp _L64cfc938_53
+_L64cfc938_55:
 	ld sp, bp
 	pop bp
 	ret
@@ -355,14 +355,14 @@ _f_so_escalona:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc ne, _L66f0b443_77
+	jmpc ne, _L64cfc938_75
 	ld r0, 0
-	jmp _L66f0b443_78
-_L66f0b443_77:
+	jmp _L64cfc938_76
+_L64cfc938_75:
 	ld r0, 1
-_L66f0b443_78:
+_L64cfc938_76:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_79
+	jmpc eq, _L64cfc938_77
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (_g_processo_atual)
@@ -375,18 +375,18 @@ _L66f0b443_78:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_80
+	jmpc eq, _L64cfc938_78
 	ld r0, 0
-	jmp _L66f0b443_81
-_L66f0b443_80:
+	jmp _L64cfc938_79
+_L64cfc938_78:
 	ld r0, 1
-_L66f0b443_81:
+_L64cfc938_79:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_82
+	jmpc eq, _L64cfc938_80
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_82:
+_L64cfc938_80:
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (_g_processo_atual)
@@ -399,58 +399,50 @@ _L66f0b443_82:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_83
+	jmpc eq, _L64cfc938_81
 	ld r0, 0
-	jmp _L66f0b443_84
-_L66f0b443_83:
+	jmp _L64cfc938_82
+_L64cfc938_81:
 	ld r0, 1
-_L66f0b443_84:
+_L64cfc938_82:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_85
+	jmpc eq, _L64cfc938_83
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (_g_processo_atual)
 	mul r0, 36
 	pop r1
 	add r1, r0
-	ld r0, (r1+2)
-	push r0
+	push r1
 	ld r0, 2
-	ld r1, r0
-	pop r0
-	cmp r0, r1
-	jmpc eq, _L66f0b443_86
-	ld r0, 0
-	jmp _L66f0b443_87
-_L66f0b443_86:
-	ld r0, 1
-_L66f0b443_87:
+	pop r1
+	st r0, (r1+2)
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_85:
-_L66f0b443_79:
+_L64cfc938_83:
+_L64cfc938_77:
 	ld r0, 1
 	xor r0, -1
 	add r0, 1
 	st r0, (_g_processo_atual)
 	ld r0, 0
 	st r0, (bp+-2)
-_L66f0b443_88:
+_L64cfc938_84:
 	ld r0, (bp+-2)
 	push r0
 	ld r0, 8
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_91
+	jmpc lt, _L64cfc938_87
 	ld r0, 0
-	jmp _L66f0b443_92
-_L66f0b443_91:
+	jmp _L64cfc938_88
+_L64cfc938_87:
 	ld r0, 1
-_L66f0b443_92:
+_L64cfc938_88:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_90
+	jmpc eq, _L64cfc938_86
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-2)
@@ -463,14 +455,14 @@ _L66f0b443_92:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_93
+	jmpc eq, _L64cfc938_89
 	ld r0, 0
-	jmp _L66f0b443_94
-_L66f0b443_93:
+	jmp _L64cfc938_90
+_L64cfc938_89:
 	ld r0, 1
-_L66f0b443_94:
+_L64cfc938_90:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_95
+	jmpc eq, _L64cfc938_91
 	ld r0, (bp+-2)
 	st r0, (_g_processo_atual)
 	ld r0, _g_tabela_processos
@@ -486,15 +478,15 @@ _L66f0b443_94:
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_95:
-_L66f0b443_89:
+_L64cfc938_91:
+_L64cfc938_85:
 	ld r0, (bp+-2)
 	push r0
 	add r0, 1
 	st r0, (bp+-2)
 	pop r0
-	jmp _L66f0b443_88
-_L66f0b443_90:
+	jmp _L64cfc938_84
+_L64cfc938_86:
 	ld sp, bp
 	pop bp
 	ret
@@ -515,10 +507,10 @@ _f_init:
 	add sp, 2
 	ld r0, 0
 	st r0, (_g_counter_init)
-_L66f0b443_101:
+_L64cfc938_97:
 	ld r0, 1
 	cmp r0, 0
-	jmpc eq, _L66f0b443_102
+	jmpc eq, _L64cfc938_98
 	ld r0, (_g_counter_init)
 	push r0
 	add r0, 1
@@ -530,19 +522,19 @@ _L66f0b443_101:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_103
+	jmpc eq, _L64cfc938_99
 	ld r0, 0
-	jmp _L66f0b443_104
-_L66f0b443_103:
+	jmp _L64cfc938_100
+_L64cfc938_99:
 	ld r0, 1
-_L66f0b443_104:
+_L64cfc938_100:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_105
+	jmpc eq, _L64cfc938_101
 	ld r0, 0
 	st r0, (_g_counter_init)
-_L66f0b443_105:
-	jmp _L66f0b443_101
-_L66f0b443_102:
+_L64cfc938_101:
+	jmp _L64cfc938_97
+_L64cfc938_98:
 	ld sp, bp
 	pop bp
 	ret
@@ -558,21 +550,21 @@ _f_kernel_inicio:
 	st r0, (_g_proximo_pid)
 	ld r0, 0
 	st r0, (bp+-4)
-_L66f0b443_117:
+_L64cfc938_113:
 	ld r0, (bp+-4)
 	push r0
 	ld r0, 8
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc lt, _L66f0b443_120
+	jmpc lt, _L64cfc938_116
 	ld r0, 0
-	jmp _L66f0b443_121
-_L66f0b443_120:
+	jmp _L64cfc938_117
+_L64cfc938_116:
 	ld r0, 1
-_L66f0b443_121:
+_L64cfc938_117:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_119
+	jmpc eq, _L64cfc938_115
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (bp+-4)
@@ -593,14 +585,14 @@ _L66f0b443_121:
 	ld r0, 0
 	pop r1
 	st r0, (r1+2)
-_L66f0b443_118:
+_L64cfc938_114:
 	ld r0, (bp+-4)
 	push r0
 	add r0, 1
 	st r0, (bp+-4)
 	pop r0
-	jmp _L66f0b443_117
-_L66f0b443_119:
+	jmp _L64cfc938_113
+_L64cfc938_115:
 	ld r0, _f_init
 	push r0
 	call _f_cria_processo
@@ -614,21 +606,21 @@ _L66f0b443_119:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_122
+	jmpc eq, _L64cfc938_118
 	ld r0, 0
-	jmp _L66f0b443_123
-_L66f0b443_122:
+	jmp _L64cfc938_119
+_L64cfc938_118:
 	ld r0, 1
-_L66f0b443_123:
+_L64cfc938_119:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_124
+	jmpc eq, _L64cfc938_120
 	ld r0, 1
 	xor r0, -1
 	add r0, 1
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_124:
+_L64cfc938_120:
 	call _f_so_escalona
 	ld r0, (_g_processo_atual)
 	push r0
@@ -638,21 +630,21 @@ _L66f0b443_124:
 	ld r1, r0
 	pop r0
 	cmp r0, r1
-	jmpc eq, _L66f0b443_125
+	jmpc eq, _L64cfc938_121
 	ld r0, 0
-	jmp _L66f0b443_126
-_L66f0b443_125:
+	jmp _L64cfc938_122
+_L64cfc938_121:
 	ld r0, 1
-_L66f0b443_126:
+_L64cfc938_122:
 	cmp r0, 0
-	jmpc eq, _L66f0b443_127
+	jmpc eq, _L64cfc938_123
 	ld r0, 1
 	xor r0, -1
 	add r0, 1
 	ld sp, bp
 	pop bp
 	ret
-_L66f0b443_127:
+_L64cfc938_123:
 	ld r0, _g_tabela_processos
 	push r0
 	ld r0, (_g_processo_atual)
@@ -667,6 +659,107 @@ _L66f0b443_127:
 	pop r1
 	add r1, r0
 	ld r0, r1
+	ld sp, bp
+	pop bp
+	ret
+	ld sp, bp
+	pop bp
+	ret
+_f_trata_syscall:
+	push bp
+	ld bp, sp
+	sub sp, 6
+	ld r0, (bp+4)
+	push r0
+	call _f_salva_contexto
+	add sp, 2
+	ld r0, (bp+4)
+	push r0
+	ld r0, 0
+	mul r0, 2
+	pop r1
+	add r1, r0
+	ld r0, (r1)
+	st r0, (bp+-2)
+	ld r0, (bp+4)
+	push r0
+	ld r0, 1
+	mul r0, 2
+	pop r1
+	add r1, r0
+	ld r0, (r1)
+	st r0, (bp+-4)
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	st r0, (bp+-6)
+	ld r0, (bp+-2)
+	push r0
+	ld r0, 1
+	ld r1, r0
+	pop r0
+	cmp r0, r1
+	jmpc eq, _L64cfc938_130
+	ld r0, 0
+	jmp _L64cfc938_131
+_L64cfc938_130:
+	ld r0, 1
+_L64cfc938_131:
+	cmp r0, 0
+	jmpc eq, _L64cfc938_132
+	ld r0, (bp+-4)
+	push r0
+	call _f_console_escreve
+	add sp, 2
+	ld r0, 0
+	st r0, (bp+-6)
+_L64cfc938_132:
+	ld r0, _g_tabela_processos
+	push r0
+	ld r0, (_g_processo_atual)
+	mul r0, 36
+	pop r1
+	add r1, r0
+	ld r0, r1
+	add r0, 4
+	push r0
+	ld r0, 0
+	mul r0, 2
+	pop r1
+	add r1, r0
+	push r1
+	ld r0, (bp+-6)
+	pop r1
+	st r0, (r1)
+	call _f_so_escalona
+	ld r0, (_g_processo_atual)
+	push r0
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	ld r1, r0
+	pop r0
+	cmp r0, r1
+	jmpc eq, _L64cfc938_133
+	ld r0, 0
+	jmp _L64cfc938_134
+_L64cfc938_133:
+	ld r0, 1
+_L64cfc938_134:
+	cmp r0, 0
+	jmpc eq, _L64cfc938_135
+	ld r0, 1
+	xor r0, -1
+	add r0, 1
+	ld sp, bp
+	pop bp
+	ret
+_L64cfc938_135:
+	ld r0, (bp+4)
+	push r0
+	call _f_restaura_contexto
+	add sp, 2
+	ld r0, 0
 	ld sp, bp
 	pop bp
 	ret

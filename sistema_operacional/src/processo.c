@@ -77,7 +77,7 @@ void so_escalona()
 
         if (tabela_processos[processo_atual].estado == PRONTO)
         {
-            tabela_processos[processo_atual].estado == EXECUTANDO;
+            tabela_processos[processo_atual].estado = EXECUTANDO;
             return;
         }
     }
