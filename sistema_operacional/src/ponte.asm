@@ -1,4 +1,5 @@
-.equ SO_ESCREVE = 1
+.equ SO_ESCREVE   = 1
+.equ SO_CRIA_PROC = 2
 
 _kernel_inicio:
         ld      r0, entrada_syscall
@@ -15,7 +16,7 @@ _kernel_inicio:
 falha_inicio:
         halt
 
-; int so_escreve(int caractere)
+;int so_escreve(int caractere);
 _f_so_escreve:
         push    bp
         ld      bp, sp
@@ -45,6 +46,19 @@ _f_console_escreve:
 
         ld      r0, (bp+4)
         call    bios_putc
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+;int so_cria_processo(int endereco_inicio);
+_f_so_cria_processo:
+        push    bp
+        ld      bp, sp
+
+        ld      r1, (bp+4)
+        ld      r0, SO_CRIA_PROC
+        trap    7
 
         ld      sp, bp
         pop     bp

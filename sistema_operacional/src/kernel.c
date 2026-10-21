@@ -39,6 +39,7 @@ int kernel_inicio(void)
 
 int trata_syscall(int *quadro)
 {
+    int novo_idx;
     int chamada;
     int argumento;
     int resultado;
@@ -54,6 +55,15 @@ int trata_syscall(int *quadro)
     {
         console_escreve(argumento);
         resultado = 0;
+    }
+    if (chamada == SO_CRIA_PROC)
+    {
+        novo_idx = cria_processo(argumento);
+        
+        if (novo_idx != -1)
+        {
+            resultado = tabela_processos[novo_idx].pid;
+        }
     }
 
     tabela_processos[processo_atual].contexto[0] = resultado;
