@@ -63,10 +63,14 @@ int mata_processo(int pid);
  * Ciclos ainda nao sao detectados. */
 int espera_processo(int pid);
 
-/* */
+/* Torna um processo pronto e adiciona ele à fila de prontos. 
+ * Verifica se ele já está na fila para evitar duplicados.
+ * O index que e inserido na fila, nao o PID. */
 void torna_pronto(int index);
 
-/* */
+/* Remove do um processo da fila de prontos.
+ * Procura pelo index na fila. Desloca os elementos apos remocao.
+ * Decrementa a quantidade de elementos da fila. */
 void remove_fila(int index);
 
 #endif
