@@ -4,12 +4,24 @@
 .equ SO_CRIA_PROC   = 2
 .equ SO_MATA_PROC   = 3
 .equ SO_ESPERA_PROC = 4
-
+.equ SO_LE          = 5
 
 ; Entrada chamada pela BIOS, com interrupcoes externas desabilitadas.
 _kernel_inicio:
         ld      r0, entrada_syscall
         st      r0, (56)
+
+        ld      r0, entrada_relogio
+        st      r0, (retomada_escalonador)
+
+        ld      r0, 4000
+        ld      r1, r0
+        shr     r1, 8
+        outb    r1, (0x22)
+        outb    r0, (0x23)
+
+        ld      r0, 5
+        outb    r0, (0x30)
 
         call    _f_kernel_inicio
 
@@ -44,12 +56,33 @@ entrada_syscall:
         ld      r0, sp
         push    r0
         call    _f_trata_syscall
-        add     sp, 2       ; remove argumento: SP volta ao inicio do quadro
+        add     sp, 2
+        jmp     retorno_kernel
 
+entrada_relogio:
+        ld      r0, sp
+        push    r0
+        call    _f_trata_relogio
+        add     sp, 2
+        jmp     retorno_kernel
+
+retorno_kernel:
         cmp     r0, -1
         jmpc    eq, falha_inicio
 
+        cmp     r0, 1
+        jmpc    eq, entra_ocioso
+
         rete
+
+entra_ocioso:
+        ; A pilha de interrupcao sera reutilizada
+        ; O kernel ocioso usa a pilha separada do nucleo
+        ld      sp, pilha_nucleo
+        ei
+
+laco_ocioso:
+        jmp     laco_ocioso
 
 
 ; Adapta argumento C a bios_putc(r0).
@@ -104,6 +137,43 @@ _f_so_espera_proc:
         ld      r1, (bp+4)
         ld      r0, SO_ESPERA_PROC
         trap    7
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+
+;
+_f_so_le:
+        push    bp
+        ld      bp, sp
+
+        ld      r0, SO_LE
+        trap    7
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+
+;
+_f_console_disponivel:
+        push    bp
+        ld      bp, sp
+
+        call    bios_console_disponivel
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+
+;
+_f_console_le:
+        push    bp
+        ld      bp, sp
+
+        call    bios_console_le
 
         ld      sp, bp
         pop     bp

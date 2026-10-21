@@ -6,6 +6,7 @@
 #define SO_CRIA_PROC   2
 #define SO_MATA_PROC   3
 #define SO_ESPERA_PROC 4
+#define SO_LE          5
 
 /* Escreve um caractere no console. Retorna 0.
  * Escreve imediatamente, sem bloqueio. */
@@ -23,5 +24,9 @@ int so_mata_proc(int pid);
 /* Espera o termino de outro processo existente. Retorna 0 apos a espera
  * ou -1 se o PID nao existir ou for o proprio chamador. */
 int so_espera_proc(int pid);
+
+/* Le um caractere do console (com bloqueio). Quando não houver mais caractere
+ * libera a CPU. */
+int so_le(void);
 
 #endif

@@ -12,32 +12,14 @@ void processo_b(void)
 
 void init(void)
 {
-    int pid_b;
-    int resultado;
+    int caractere;
 
-    pid_b = so_cria_processo((int) processo_b);
+    so_escreve('>');
+    caractere = so_le();
 
-    if (pid_b == -1)
-    {
-        so_escreve('E');
-    }
-    else
-    {
-        so_escreve('A');
-
-        resultado = so_espera_proc(pid_b);
-
-        if (resultado == 0)
-        {
-            so_escreve('C');
-        }
-        else
-        {
-            so_escreve('E');
-        }
-    }
-
+    so_escreve(caractere);
     so_escreve(10);
+
     so_mata_proc(0);
 
     while (1) {}
