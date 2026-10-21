@@ -2,11 +2,13 @@
 #include "processo.h"
 #include "syscall.h"
 
+/* Ponte em assembly para a BIOS. Uso interno em modo supervisor, sem trap. */
 void console_escreve(int caractere);
 
 int pid_init;
 
-//ponto de entrada do kernel
+/* Inicializa a tabela e cria o init. Retorna o endereco do contexto inicial,
+ * ou -1 se nao puder iniciar. */
 int kernel_inicio(void)
 {
     processo_atual = -1;
@@ -14,7 +16,6 @@ int kernel_inicio(void)
 
     int index_init;
 
-    //inicializa uma tabela de processos vazia
     for (int i=0; i<MAX_PROCESSOS; i++)
     {
         tabela_processos[i].pid    = 0;
@@ -40,6 +41,9 @@ int kernel_inicio(void)
     return (int) &tabela_processos[processo_atual].contexto[0];
 }
 
+/* Recebe o quadro salvo pela CPU no trap 7, com um processo atual valido.
+ * Retorna 0 para a ponte executar rete ou -1 para parar a maquina.
+ * O resultado e separado (fica em contexto[0]) e o r0 salvo. */
 int trata_syscall(int *quadro)
 {
     int novo_idx;
@@ -52,12 +56,13 @@ int trata_syscall(int *quadro)
 
     salva_contexto(quadro);
 
+    /* Guarda a entrada antes do escalonamento. */
     chamador = processo_atual;
 
-    chamada   = quadro[0]; //r0: numero da chamada
-    argumento = quadro[1]; //r1: primeiro argumento
+    chamada   = quadro[0]; // r0 salvo: numero do servico. 
+    argumento = quadro[1]; // r1 salvo: primeiro argumento. 
 
-    resultado = -1;
+    resultado = -1;        // desconhecido ou sem sucesso.
 
     if (chamada == SO_ESCREVE)
     {
@@ -70,6 +75,7 @@ int trata_syscall(int *quadro)
         
         if (novo_idx != -1)
         {
+            /* Devolve PID e nao o index */
             resultado = tabela_processos[novo_idx].pid;
         }
     }
@@ -84,6 +90,7 @@ int trata_syscall(int *quadro)
 
         resultado = mata_processo(pid_alvo);
 
+        /* TODO: implementar a apresentacao de metricas */
         if (resultado == 0 && pid_alvo == pid_init)
         {
             return -1;
@@ -94,6 +101,9 @@ int trata_syscall(int *quadro)
         resultado = espera_processo(argumento);
     }
 
+    /* Nao retorna a quem se encerrou. Bloqueado guarda
+     * o resultado para quando voltar a executar. 
+     * O rete recupera r0. */
     if (tabela_processos[chamador].estado != LIVRE)
     {
         tabela_processos[chamador].contexto[0] = resultado;
@@ -101,11 +111,13 @@ int trata_syscall(int *quadro)
     
     so_escalona();
 
+    // Obs: por enquanto todos bloqueados causam parada.
     if (processo_atual == -1)
     {
         return -1;
     }
 
+    /* Pode restaurar outro processo diferente do que fez a chamada. */
     restaura_contexto(quadro);
     return 0;
-}   
+}

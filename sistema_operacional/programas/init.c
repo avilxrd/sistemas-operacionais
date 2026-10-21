@@ -1,9 +1,7 @@
 #include "init.h"
 #include "syscall.h"
 
-int counter_init;
-
-
+/* imprime B e encerra a si mesmo, desbloqueando o init. */
 void processo_b(void)
 {
     so_escreve('B');
@@ -12,8 +10,6 @@ void processo_b(void)
     while (1) {}
 }
 
-
-//primeiro programa: fica em loop (apenas para teste)
 void init(void)
 {
     int pid_b;

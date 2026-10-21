@@ -1,8 +1,12 @@
+; syscall: r0=numero, r1=argumento; trap 7 entra no supervisor.
+; Os numeros devem coincidir com include/syscall.h.
 .equ SO_ESCREVE     = 1
 .equ SO_CRIA_PROC   = 2
 .equ SO_MATA_PROC   = 3
 .equ SO_ESPERA_PROC = 4
 
+
+; Entrada chamada pela BIOS, com interrupcoes externas desabilitadas.
 _kernel_inicio:
         ld      r0, entrada_syscall
         st      r0, (56)
@@ -12,13 +16,16 @@ _kernel_inicio:
         cmp     r0, -1
         jmpc    eq, falha_inicio
 
-        ld      sp, r0
-        rete
+        ld      sp, r0      ; aponta para o contexto inicial montado em C
+        rete                ; carrega registradores e entra no processo usuario
 
+
+; Destino em caso de falha no boot e pedido de parada pelo kernel.
 falha_inicio:
         halt
 
-;int so_escreve(int caractere);
+
+; Pede a escrita ao SO e recebe o resultado em r0.
 _f_so_escreve:
         push    bp
         ld      bp, sp
@@ -31,17 +38,22 @@ _f_so_escreve:
         pop     bp
         ret
 
+
+; Captura SP antes de empilhar o argumento para trata_syscall(quadro).
 entrada_syscall:
         ld      r0, sp
         push    r0
         call    _f_trata_syscall
-        add     sp, 2
+        add     sp, 2       ; remove argumento: SP volta ao inicio do quadro
 
         cmp     r0, -1
         jmpc    eq, falha_inicio
 
         rete
 
+
+; Adapta argumento C a bios_putc(r0).
+; Exige supervisor ou permissao de E/S. Nao e uma syscall de usuario.
 _f_console_escreve:
         push    bp
         ld      bp, sp
@@ -53,7 +65,8 @@ _f_console_escreve:
         pop     bp
         ret
 
-;int so_cria_processo(int endereco_inicio);
+
+; Recebe endereco inicial e devolve PID ou -1.
 _f_so_cria_processo:
         push    bp
         ld      bp, sp
@@ -66,7 +79,9 @@ _f_so_cria_processo:
         pop     bp
         ret
 
-;int so_mata_proc(int pid);
+
+; PID 0 solicita o proprio encerramento.
+; O retorno so e executado se o chamador continuar vivo.
 _f_so_mata_proc:
         push    bp
         ld      bp, sp
@@ -79,7 +94,9 @@ _f_so_mata_proc:
         pop     bp
         ret
 
-;
+
+; O processo pode bloquear no trap.
+; Quando voltar a CPU continua depois do trap com o resultado em r0.
 _f_so_espera_proc:
         push    bp
         ld      bp, sp

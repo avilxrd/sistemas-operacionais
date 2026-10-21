@@ -1,12 +1,16 @@
+/* Gerenciamento de processos. 
+ * Chamadas feitas pelo kernel em modo supervisor.
+ * Os handlers atuais mantem interrupcoes externas desabilitadas durante as alteracoes. */
 #include "processo.h"
 
 struct Processo tabela_processos[MAX_PROCESSOS];
-int processo_atual;
-int proximo_pid;
+int processo_atual; // Indice na tabela. -1 significa nenhuma execucao de usuario.
+int proximo_pid;    // Sequencia de PIDs.
 
+/* Cada entrada da tabela possui uma pilha exclusiva. */
 int pilhas[MAX_PROCESSOS][TAMANHO_PILHA];
 
-//procura uma entrada livre e prepara seu PID e contexto
+/* So fica PRONTO depois que todos os dados foram preparados. */
 int cria_processo(int endereco_inicio)
 {
     for (int i=0; i<MAX_PROCESSOS; i++)
@@ -16,7 +20,6 @@ int cria_processo(int endereco_inicio)
             tabela_processos[i].pid = proximo_pid;
             proximo_pid++;
 
-            //inicializa todos os registradores como 0
             for (int j=0; j<16; j++)
             {
                 tabela_processos[i].contexto[j] = 0;
@@ -24,21 +27,21 @@ int cria_processo(int endereco_inicio)
 
             tabela_processos[i].contexto[CTX_SP] = (int) &pilhas[i][TAMANHO_PILHA];
             tabela_processos[i].contexto[CTX_IP] = endereco_inicio;
+
+            /* S=0 e I=0: usuario sem E/S direta. D=0 permite interrupcoes externas. */
             tabela_processos[i].contexto[CTX_SR] = 0;
             tabela_processos[i].pid_esperado = 0;
             tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
             tabela_processos[i].estado = PRONTO;
 
-            //retorna o indice do processo na tabela de processos
             return i;
         }
     }
-    
-    //retorna -1 se a tabela estiver cheia
+
     return -1;
 }
 
-
+/* A pilha da BIOS e reutilizada em cada interrupcao. A tabela preserva o contexto. */
 void salva_contexto(int *quadro)
 {
     if (processo_atual == -1)
@@ -52,7 +55,7 @@ void salva_contexto(int *quadro)
     }
 }
 
-
+/* Prepara o quadro que rete consumira. Nao altera registradores da CPU. */
 void restaura_contexto(int *quadro)
 {
     if (processo_atual == -1)
@@ -66,8 +69,7 @@ void restaura_contexto(int *quadro)
     }
 }
 
-
-//procura, escolhe o processo e altera o seu estado
+/* Continuar o atual enquanto ele puder executar. */
 void so_escalona()
 {
     if (processo_atual != -1)
@@ -119,6 +121,7 @@ int mata_processo(int pid)
             tabela_processos[i].pid_esperado = 0;
             tabela_processos[i].motivo_bloqueio = BLOQ_NENHUM;
             
+            /* Acorda apenas quem espera esta morte, outros permanecem bloqueados. */
             for (int j=0; j<MAX_PROCESSOS; j++)
             {
                 if (tabela_processos[j].estado == BLOQUEADO              &&
@@ -137,7 +140,7 @@ int mata_processo(int pid)
     return -1;
 }
 
-
+/* Registra a dependencia de processos. O escalonador sera chamado pelo tratamento da syscall. */
 int espera_processo(int pid)
 {
     if (processo_atual == -1)
