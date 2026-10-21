@@ -65,3 +65,32 @@ void restaura_contexto(int *quadro)
 }
 
 
+//procura, escolhe o processo e altera o seu estado
+void so_escalona()
+{
+    if (processo_atual != -1)
+    {
+        if (tabela_processos[processo_atual].estado == EXECUTANDO)
+        {
+            return;
+        }
+
+        if (tabela_processos[processo_atual].estado == PRONTO)
+        {
+            tabela_processos[processo_atual].estado == EXECUTANDO;
+            return;
+        }
+    }
+
+    processo_atual = -1;
+
+    for (int i=0; i<MAX_PROCESSOS; i++)
+    {
+        if (tabela_processos[i].estado == PRONTO)
+        {
+            processo_atual = i;
+            tabela_processos[i].estado = EXECUTANDO;
+            return;
+        }
+    }
+}

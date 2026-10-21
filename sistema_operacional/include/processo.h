@@ -35,4 +35,9 @@ void salva_contexto(int *quadro);
 void restaura_contexto(int *quadro);
 
 
+//
+void so_escalona(void);
+
+
+
 #endif

@@ -22,11 +22,13 @@ int kernel_inicio(void)
     {
         return -1;
     }
-    
-    tabela_processos[index_init].estado = EXECUTANDO;
-    processo_atual = index_init;
 
-    //retorna o endereco do contexto preparado
-    return (int) &tabela_processos[index_init].contexto[0];
+    so_escalona();
 
+    if (processo_atual == -1)
+    {
+        return -1;
+    }
+
+    return (int) &tabela_processos[processo_atual].contexto[0];
 }
