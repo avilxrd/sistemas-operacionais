@@ -1,9 +1,10 @@
 #ifndef SYSCALL_H
 #define SYSCALL_H
 
-#define SO_ESCREVE   1
-#define SO_CRIA_PROC 2
-#define SO_MATA_PROC 3
+#define SO_ESCREVE     1
+#define SO_CRIA_PROC   2
+#define SO_MATA_PROC   3
+#define SO_ESPERA_PROC 4
 
 int so_escreve(int caractere);
 
@@ -17,5 +18,7 @@ int so_cria_processo(int endereco_inicio);
 //ret: 
 int so_mata_proc(int pid);
 
+//
+int so_espera_proc(int pid);
 
 #endif

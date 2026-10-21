@@ -89,6 +89,10 @@ int trata_syscall(int *quadro)
             return -1;
         }
     }
+    if (chamada == SO_ESPERA_PROC)
+    {
+        resultado = espera_processo(argumento);
+    }
 
     if (tabela_processos[chamador].estado != LIVRE)
     {

@@ -3,11 +3,13 @@
 
 int counter_init;
 
+
 void processo_b(void)
 {
     so_escreve('B');
-    so_escreve(10);
-    while(1){}
+    so_mata_proc(0);
+    
+    while (1) {}
 }
 
 
@@ -25,24 +27,13 @@ void init(void)
     }
     else
     {
-        so_escreve('C');
+        so_escreve('A');
 
-        resultado = so_mata_proc(pid_b);
+        resultado = so_espera_proc(pid_b);
 
         if (resultado == 0)
         {
-            so_escreve('M');
-        }
-        else
-        {
-            so_escreve('E');
-        }
-
-        resultado = so_mata_proc(pid_b);
-
-        if (resultado == -1)
-        {
-            so_escreve('X');
+            so_escreve('C');
         }
         else
         {
@@ -50,5 +41,8 @@ void init(void)
         }
     }
 
-    while(1){}
+    so_escreve(10);
+    so_mata_proc(0);
+
+    while (1) {}
 }

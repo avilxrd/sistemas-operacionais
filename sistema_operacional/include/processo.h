@@ -20,6 +20,7 @@ struct Processo
     int pid;          //id do processo
     int estado;       //estado do processo
     int contexto[16]; //16 registradores do mancha
+    int pid_esperado; //0: nao espera
 };
 
 //a funcao recebe o endereco do codigo que o novo
@@ -41,5 +42,10 @@ void so_escalona(void);
 
 //
 int mata_processo(int pid);
+
+
+//
+int espera_processo(int pid);
+
 
 #endif

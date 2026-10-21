@@ -25,6 +25,7 @@ int cria_processo(int endereco_inicio)
             tabela_processos[i].contexto[CTX_SP] = (int) &pilhas[i][TAMANHO_PILHA];
             tabela_processos[i].contexto[CTX_IP] = endereco_inicio;
             tabela_processos[i].contexto[CTX_SR] = 0;
+            tabela_processos[i].pid_esperado = 0;
             tabela_processos[i].estado = PRONTO;
 
             //retorna o indice do processo na tabela de processos
@@ -100,9 +101,9 @@ int mata_processo(int pid)
 {
     if (pid == 0)
     {
-        if (processo_atual != -1)
+        if (processo_atual == -1)
         {
-            return 1;
+            return -1;
         }
 
         pid = tabela_processos[processo_atual].pid;
@@ -114,9 +115,46 @@ int mata_processo(int pid)
             tabela_processos[i].pid == pid)
         {
             tabela_processos[i].estado = LIVRE;
+            tabela_processos[i].pid_esperado = 0;
+            
+            for (int j=0; j<MAX_PROCESSOS; j++)
+            {
+                if (tabela_processos[j].estado == BLOQUEADO &&
+                    tabela_processos[j].pid_esperado == pid)
+                {
+                    tabela_processos[j].pid_esperado = 0;
+                    tabela_processos[j].contexto[0] = 0;
+                    tabela_processos[j].estado = PRONTO;
+                }
+            }
             return 0;
         }
     }
+    return -1;
+}
 
+
+int espera_processo(int pid)
+{
+    if (processo_atual == -1)
+    {
+        return -1;
+    }
+
+    if (pid == tabela_processos[processo_atual].pid)
+    {
+        return -1;
+    }
+
+    for (int i=0; i<MAX_PROCESSOS; i++)
+    {
+        if (tabela_processos[i].estado != LIVRE &&
+            tabela_processos[i].pid == pid)
+        {
+            tabela_processos[processo_atual].pid_esperado = pid;
+            tabela_processos[processo_atual].estado = BLOQUEADO;
+            return 0;
+        }
+    }
     return -1;
 }
