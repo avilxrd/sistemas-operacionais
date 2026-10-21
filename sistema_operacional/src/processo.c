@@ -15,14 +15,14 @@ int quant_prontos;
 
 int pilhas[MAX_PROCESSOS][TAMANHO_PILHA]; // Cada entrada da tabela possui uma pilha exclusiva.
 
-/* */
+
 void remove_fila(int index)
 {
     for (int i=0; i<quant_prontos; i++)
     {
         if (fila_prontos[i] == index)
         {
-            for (int j=0; j<quant_prontos-1; j++)
+            for (int j=i; j<quant_prontos-1; j++)
             {
                 fila_prontos[j] = fila_prontos[j+1];
             }
@@ -34,7 +34,6 @@ void remove_fila(int index)
 }
 
 
-/* */
 void torna_pronto(int index)
 {
     for (int i=0; i<quant_prontos; i++)
@@ -49,7 +48,7 @@ void torna_pronto(int index)
     fila_prontos[quant_prontos] = index;
     quant_prontos++;
 
-    }
+}
 
 /* So fica PRONTO depois que todos os dados foram preparados. */
 int cria_processo(int endereco_inicio)
