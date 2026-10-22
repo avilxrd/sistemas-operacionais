@@ -167,7 +167,6 @@ _f_console_disponivel:
         pop     bp
         ret
 
-
 ;
 _f_console_le:
         push    bp
@@ -186,6 +185,27 @@ _f_console_inteiro:
 
         ld      r0, (bp+4)
         call    bios_imprime_dec
+
+        ld      sp, bp
+        pop     bp
+        ret
+
+_f_relogio_contador:
+        push    bp
+        ld      bp, sp
+
+relogio_repete_leitura:
+        inb     r0, (0x20)
+        inb     r1, (0x21)
+        inb     r2, (0x20)
+
+        cmp     r0, r2
+        jmpc    eq, relogio_leitura_valida
+        jmp     relogio_repete_leitura
+
+relogio_leitura_valida:
+        shl     r0, 8
+        or      r0, r1
 
         ld      sp, bp
         pop     bp
