@@ -73,7 +73,7 @@ void trata_pendencias(void)
 }
 
 
-/* */
+/* Trata o quantum e as operacoes pendentes antes de escolher o proximo. */
 int trata_relogio(int *quadro)
 {
     registra_interrupcao(10);
@@ -84,7 +84,8 @@ int trata_relogio(int *quadro)
 
     if (processo_atual != -1)
     {
-        if (tabela_processos[processo_atual].estado == EXECUTANDO)
+        if (tabela_processos[processo_atual].estado == EXECUTANDO &&
+            ESCALONADOR != ESC_SIMPLES)
         {
             quantum_restante--;
 
@@ -112,7 +113,7 @@ int trata_relogio(int *quadro)
 
 
 /* Recebe o quadro salvo pela CPU no trap 7, com um processo atual valido.
- * Retorna 0 para a ponte executar rete ou -1 para parar a maquina.
+ * Retorna 0 para rete, 1 para ociosidade ou -1 para parar a maquina.
  * O resultado e separado (fica em contexto[0]) e o r0 salvo. */
 int trata_syscall(int *quadro)
 {
@@ -180,7 +181,7 @@ int trata_syscall(int *quadro)
         resultado = espera_processo(argumento);
     }
 
-    // * SYSCALL 5 ||| 
+    // * SYSCALL 5 ||| SO_LE
     if (chamada == SO_LE)
     {
         if (console_disponivel() != 0)
@@ -207,13 +208,42 @@ int trata_syscall(int *quadro)
     
     so_escalona();
 
-    // Obs: por enquanto todos bloqueados causam parada.
+    /* Sem processo pronto, a ponte entra no laco ocioso com interrupcoes. */
     if (processo_atual == -1)
     {
         return 1;
     }
 
     /* Pode restaurar outro processo diferente do que fez a chamada. */
+    restaura_contexto(quadro);
+    return 0;
+}
+
+/* Conta uma excecao e encerra o processo que a provocou. */
+int trata_excecao(int *quadro, int numero)
+{
+    registra_interrupcao(numero);
+    
+    if ((quadro[CTX_SR] & 32768) != 0 || processo_atual == -1)
+    {
+        imprime_metricas();
+        return -1;
+    }
+
+    salva_contexto(quadro);
+    if (tabela_processos[processo_atual].pid == pid_init)
+    {
+        mata_processo(0);
+        imprime_metricas();
+        return -1;
+    }
+
+    mata_processo(0);
+    so_escalona();
+    if (processo_atual == -1)
+    {
+        return 1;
+    }
     restaura_contexto(quadro);
     return 0;
 }

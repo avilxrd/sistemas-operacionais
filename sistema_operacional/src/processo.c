@@ -63,6 +63,11 @@ int cria_processo(int endereco_inicio)
 {
     int registro;
 
+    if (endereco_inicio == 0)
+    {
+        return -1;
+    }
+
     for (int i=0; i<MAX_PROCESSOS; i++)
     {
         if (tabela_processos[i].estado == LIVRE)
@@ -144,7 +149,7 @@ void atualiza_prioridade(int index)
 
 
 /* Continuar o atual enquanto ele puder executar. */
-void so_escalona()
+void so_escalona(void)
 {
     int escolhido;
 
@@ -165,6 +170,7 @@ void so_escalona()
 
     if (quant_prontos == 0)
     {
+        registra_ociosidade(1);
         return;
     }
 
@@ -182,6 +188,19 @@ void so_escalona()
         }
     }
 
+    if (ESCALONADOR == ESC_SIMPLES)
+    {
+        for (int i=0; i<MAX_PROCESSOS; i++)
+        {
+            if (tabela_processos[i].estado == PRONTO)
+            {
+                escolhido = i;
+                break;
+            }
+        }
+    }
+
+    registra_ociosidade(0);
     processo_atual = escolhido;
     remove_fila(processo_atual);
 

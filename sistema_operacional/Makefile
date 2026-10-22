@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := all
 # Caminho da base fornecida; pode ser sobrescrito com make MANCHA=/outro/caminho.
 MANCHA ?= $(HOME)/mancha_so
 MCC = $(MANCHA)/compilador_c/bin/mcc
@@ -5,7 +6,12 @@ MONTADOR = $(MANCHA)/simulador_completo/bin/montador
 SIMULADOR = $(MANCHA)/simulador_completo/bin/simulador
 BIOS = $(MANCHA)/bios_mancha/src/bios.asm
 
-.PHONY: all run
+.DELETE_ON_ERROR:
+
+.PHONY: all run test
+
+test:
+	python3 testes/testa.py --mancha $(MANCHA)
 
 all: build/meu_so.mob
 

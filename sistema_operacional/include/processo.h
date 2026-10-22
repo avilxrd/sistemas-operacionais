@@ -4,9 +4,13 @@
 /* Limite de processos simultaneos. Uma entrada LIVRE pode ser reutilizada. */
 #define MAX_PROCESSOS 8
 
-/* NAO AUMENTAR QUANTUM PARA VALORES ACIMA DE 32 
- * OVERFLOW EM void atualiza_priotidade(int index); !! */
+/* Quantum entre 1 e 32. */
+#ifndef QUANTUM
 #define QUANTUM 3
+#endif
+
+/* Instrucoes por interrupcao. */
+#define PERIODO_RELOGIO 16000
 
 /* Tamanho de cada pilha em palavras (16 bits). */
 #define TAMANHO_PILHA 128
@@ -30,8 +34,11 @@
 /* Escalonador */
 #define ESC_RR         0
 #define ESC_PRIORIDADE 1
+#define ESC_SIMPLES    2
 
+#ifndef ESCALONADOR
 #define ESCALONADOR ESC_PRIORIDADE
+#endif
 
 struct Processo
 {
@@ -41,12 +48,12 @@ struct Processo
     int pid_esperado;      // PID alvo quando BLOQ_PROCESSO.    
     int motivo_bloqueio;   // Motivo pelo qual o processo foi bloqueado.
     int prioridade;        // 0 - 1000.
-    int registro_metricas; //
+    int registro_metricas; // Indice permanente no historico.
 };
 
 /* Prepara contexto e pilha e marca PRONTO. Recebe o endereco inicial.
  * Retorna o index na tabela ou -1 se nao houver vaga. Nao entrega a CPU.
- * O endereco recebido ainda nao e validado. */
+ * Rejeita endereco zero; os demais devem apontar para uma funcao de usuario. */
 int cria_processo(int endereco_inicio);
 
 /* Copia 16 palavras do quadro da interrupcao para o processo atual.
@@ -57,9 +64,8 @@ void salva_contexto(int *quadro);
  * Nao faz nada sem processo atual. */
 void restaura_contexto(int *quadro);
 
-/* Mantem o atual se executavel, caso contrario escolhe o primeiro PRONTO.
- * Atualiza processo_atual e o estado e deixa -1 se nao houver candidato.
- * Nao copia contextos. Ainda não é preemptivo. */
+/* Mantem o atual enquanto executavel. Escolhe pela politica configurada
+ * quando houver bloqueio, morte ou fim do quantum. Nao copia contextos. */
 void so_escalona(void);
 
 /* Libera a entrada do PID e torna PRONTOS os processos que esperavam por ele.
