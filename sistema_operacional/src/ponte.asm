@@ -178,3 +178,15 @@ _f_console_le:
         ld      sp, bp
         pop     bp
         ret
+
+;void console_inteiro(int valor);
+_f_console_inteiro:
+        push    bp
+        ld      bp, sp
+
+        ld      r0, (bp+4)
+        call    bios_imprime_dec
+
+        ld      sp, bp
+        pop     bp
+        ret

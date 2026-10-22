@@ -1,6 +1,7 @@
 #include "init.h"
 #include "processo.h"
 #include "syscall.h"
+#include "metricas.h"
 
 /* Pontes em assembly para a BIOS. Uso interno em modo supervisor, sem trap. */
 void console_escreve(int caractere);
@@ -27,6 +28,8 @@ int kernel_inicio(void)
         tabela_processos[i].pid    = 0;
         tabela_processos[i].estado = LIVRE;
     }
+
+    inicializa_metricas();
 
     index_init = cria_processo((int)init);
 
@@ -73,10 +76,11 @@ void trata_pendencias(void)
 /* */
 int trata_relogio(int *quadro)
 {
+    registra_interrupcao(10);
+
     salva_contexto(quadro);
 
     trata_pendencias();
-    so_escalona();
 
     if (processo_atual != -1)
     {
@@ -86,6 +90,8 @@ int trata_relogio(int *quadro)
 
             if (quantum_restante == 0)
             {
+                registra_preempcao(tabela_processos[processo_atual].registro_metricas);
+                atualiza_prioridade(processo_atual);
                 torna_pronto(processo_atual);
                 processo_atual = -1;
             }
@@ -117,6 +123,8 @@ int trata_syscall(int *quadro)
     
     int chamador;
     int pid_alvo;
+
+    registra_interrupcao(7);
 
     salva_contexto(quadro);
 
@@ -159,9 +167,9 @@ int trata_syscall(int *quadro)
 
         resultado = mata_processo(pid_alvo);
 
-        /* TODO: implementar a apresentacao de metricas */
         if (resultado == 0 && pid_alvo == pid_init)
         {
+            imprime_metricas();
             return -1;
         }
     }
@@ -183,8 +191,8 @@ int trata_syscall(int *quadro)
         {
             tabela_processos[chamador].motivo_bloqueio = BLOQ_LEITURA;
             tabela_processos[chamador].pid_esperado     = 0;
-            tabela_processos[chamador].estado          = BLOQUEADO;
-
+            muda_estado(chamador, BLOQUEADO);
+            
             resultado = 0;
         }
     }

@@ -13,7 +13,7 @@ build:
 	mkdir -p build
 
 # O mcc compila sistema.c; todos os fontes incluidos precisam ser dependencias.
-build/kernel.asm: src/sistema.c src/kernel.c src/processo.c programas/init.c include/processo.h include/init.h include/syscall.h $(MCC) | build
+build/kernel.asm: src/sistema.c src/kernel.c src/processo.c programas/init.c include/processo.h include/init.h include/syscall.h src/metricas.c include/metricas.h $(MCC) | build
 	$(MCC) -Iinclude src/sistema.c -o $@
 
 # Montagem conjunta resolve simbolos entre BIOS, ponte e codigo gerado.

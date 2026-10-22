@@ -4,6 +4,8 @@
 /* Limite de processos simultaneos. Uma entrada LIVRE pode ser reutilizada. */
 #define MAX_PROCESSOS 8
 
+/* NAO AUMENTAR QUANTUM PARA VALORES ACIMA DE 32 
+ * OVERFLOW EM void atualiza_priotidade(int index); !! */
 #define QUANTUM 3
 
 /* Tamanho de cada pilha em palavras (16 bits). */
@@ -15,23 +17,31 @@
 #define CTX_SR 8 
 
 /* Estados possiveis do processo. */
-#define LIVRE      0    // 
-#define PRONTO     1    //
-#define EXECUTANDO 2    //
-#define BLOQUEADO  3    //
+#define LIVRE      0 
+#define PRONTO     1
+#define EXECUTANDO 2
+#define BLOQUEADO  3
 
-/* Motiveis possiveis para o bloqueio do processo. */
+/* Motivos possiveis para o bloqueio do processo. */
 #define BLOQ_NENHUM   0
 #define BLOQ_PROCESSO 1
 #define BLOQ_LEITURA  2
 
+/* Escalonador */
+#define ESC_RR         0
+#define ESC_PRIORIDADE 1
+
+#define ESCALONADOR ESC_PRIORIDADE
+
 struct Processo
 {
-    int pid;             // Id do processo.             
-    int estado;          // Estado do processo.          
-    int contexto[16];    // Copia dos registradores do processo.    
-    int pid_esperado;    // PID alvo quando BLOQ_PROCESSO.    
-    int motivo_bloqueio; // Motivo pelo qual o processo foi bloqueado. 
+    int pid;               // Id do processo.             
+    int estado;            // Estado do processo.          
+    int contexto[16];      // Copia dos registradores do processo.    
+    int pid_esperado;      // PID alvo quando BLOQ_PROCESSO.    
+    int motivo_bloqueio;   // Motivo pelo qual o processo foi bloqueado.
+    int prioridade;        // 0 - 1000.
+    int registro_metricas; //
 };
 
 /* Prepara contexto e pilha e marca PRONTO. Recebe o endereco inicial.
@@ -72,5 +82,12 @@ void torna_pronto(int index);
  * Procura pelo index na fila. Desloca os elementos apos remocao.
  * Decrementa a quantidade de elementos da fila. */
 void remove_fila(int index);
+
+/* Atualiza a prioridade de um processo. Recebe o
+ * index do processo na tabela de processos. */
+void atualiza_prioridade(int index);
+
+/* Modifica o estado de um processo. */
+void muda_estado(int index, int novo_estado);
 
 #endif
